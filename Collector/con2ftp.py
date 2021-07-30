@@ -12,9 +12,9 @@ class Con2ftp:
         self.conexao = FTP(self.address)
         try:
             self.conexao.login('queimadas', 'inpe_2012')
-            return ">>> " + self.conexao.getwelcome()
+            return ">>>> " + self.conexao.getwelcome()
         except:
-            return ' > Connection has been failed'
+            return '  > Connection has been failed'
 
     def countFiles(self):
         self.conexao.cwd(self.folder)
@@ -32,7 +32,7 @@ class Con2ftp:
             self.files_list.append(file)
         del (self.files_list[0:2])
 
-        return '>>> ' + str(len(self.files_list)) + ' Files found'
+        return '>>>> ' + str(len(self.files_list)) + ' Files found'
 
     def listFiles(self, files):
         return self.files_list
