@@ -9,4 +9,4 @@ if __name__ == '__main__':
 
     print('Searching for burn files...')
     print(conn.countFiles())
-    print(conn.listFiles(''))
+    print(conn.listFiles())

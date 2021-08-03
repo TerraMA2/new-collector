@@ -34,5 +34,5 @@ class Con2ftp:
 
         return '>>>> ' + str(len(self.files_list)) + ' Files found'
 
-    def listFiles(self, files):
+    def listFiles(self):
         return self.files_list
