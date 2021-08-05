@@ -20,4 +20,4 @@ if __name__ == '__main__':
     print(conn.listFileDay())
 
     print("Downloading today's files")
-    #print(conn.downloadFilesDay('C:\\git\\new-collector\\Collector\\Files'))
+    print(conn.downloadFilesDay('C:\\git\\new-collector\\Collector\\Files'))
