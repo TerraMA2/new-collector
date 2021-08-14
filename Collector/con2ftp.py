@@ -33,23 +33,25 @@ class Con2ftp:
         return '>>>> ' + str(len(self.files_list)) + ' Files found'
 
     def listFiles(self):
+        global all_files
+        all_files = self.files_list
         return self.files_list
 
-    # def downloadFiles(self, directory):
-    #     nonpassive = False
-    #     if nonpassive:
-    #         self.conexao.set_pasv(False)
-    #     try:
-    #         for filename in self.files_list:
-    #             local_filename = os.path.join(directory, filename)
-    #             file = open(local_filename, 'wb')
-    #             self.conexao.retrbinary('RETR ' + filename, file.write)
-    #             file.close()
-    #         self.conexao.quit()
-    #         return 'Download has been finished!'
-    #     except():
-    #         self.conexao.quit()
-    #         return 'Failed to download files...'
+    def downloadFiles(self, directory):
+        nonpassive = False
+        if nonpassive:
+            self.conexao.set_pasv(False)
+        try:
+            for filename in self.files_list:
+                local_filename = os.path.join(directory, filename)
+                file = open(local_filename, 'wb')
+                self.conexao.retrbinary('RETR ' + filename, file.write)
+                file.close()
+            self.conexao.quit()
+            return 'Download has been finished!'
+        except():
+            self.conexao.quit()
+            return 'Failed to download files...'
 
     def listFileDay(self):
         actual_date = date.today()
@@ -66,7 +68,8 @@ class Con2ftp:
         for d in self.files_list:
             if 'focos_terrama2q_' + str(year) + str(month) + str(day) in d:
                 self.fileDay.append(d)
-        return self.fileDay
+
+        return '>>>> ' + str(len(self.fileDay)) + ' Files found'
 
     def downloadFilesDay(self, directory):
         nonpassive = False
@@ -77,6 +80,7 @@ class Con2ftp:
                 local_filename = os.path.join(directory, filename)
                 file = open(local_filename, 'wb')
                 self.conexao.retrbinary('RETR ' + filename, file.write)
+                print('Saving File: ' + filename)
                 file.close()
             self.conexao.quit()
             return 'Download has been finished!'
