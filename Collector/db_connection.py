@@ -1,4 +1,5 @@
 import psycopg2
+from con2ftp import Con2ftp
 
 
 class Db_connection:
@@ -24,3 +25,4 @@ class Db_connection:
         recset = self.cur.fetchall()
         for rec in recset:
             print(rec)
+
