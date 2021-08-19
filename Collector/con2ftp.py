@@ -14,5 +14,5 @@ class Con2ftp:
         try:
             self.conexao.login('queimadas', 'inpe_2012')
             return ">>>> " + self.conexao.getwelcome()
-        except:
+        except():
             return ' >> Connection has been failed'

@@ -5,6 +5,7 @@ import os
 
 class Download_files(Con2ftp):
     def __init__(self, address, folder):
+        self.files_day_directory = ''
         super().__init__(address, folder)
 
     def countFiles(self):
@@ -39,7 +40,7 @@ class Download_files(Con2ftp):
             self.conexao.quit()
             return 'Failed to download files...'
 
-    def listFileDay(self):
+    def numberOfTodayFiles(self):
         actual_date = date.today()
         if actual_date.day < 10:
             day = "0" + str(actual_date.day)
@@ -57,17 +58,25 @@ class Download_files(Con2ftp):
 
         return '>>>> ' + str(len(self.fileDay)) + ' Files found'
 
+    def listFileDay(self):
+        return self.fileDay
+
     def downloadFilesDay(self, directory):
+        self.files_day_directory = directory
         nonpassive = False
         if nonpassive:
             self.conexao.set_pasv(False)
         try:
+            print(" >>> Saving all today's Files... ")
+
             for filename in self.fileDay:
-                local_filename = os.path.join(directory, filename)
-                file = open(local_filename, 'wb')
-                self.conexao.retrbinary('RETR ' + filename, file.write)
-                print('Saving File: ' + filename)
-                file.close()
+                if os.path.isfile(directory + '/' + filename):
+                    pass
+                else:
+                    local_filename = os.path.join(directory, filename)
+                    file = open(local_filename, 'wb')
+                    self.conexao.retrbinary('RETR ' + filename, file.write)
+                    file.close()
             self.conexao.quit()
             return 'Download has been finished!'
         except():
