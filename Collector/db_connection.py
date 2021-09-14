@@ -25,7 +25,8 @@ class Db_connection(Read_csv):
     def insert_values(self):
         for index, row in self.readed_file.iterrows():
             self.cur.execute(
-                "SELECT foco_id FROM dd_focos_inpe u WHERE u.foco_id = '"+row[12]+"';"
+                "SELECT foco_id FROM dd_focos_inpe u WHERE to_char(data_hora_gmt, 'YYYY-MM-DD') LIKE '%" +
+                self.date_today + "%' and u.foco_id = '" + row[12] + "';"
             )
             result = self.cur.fetchone()
 
@@ -37,10 +38,11 @@ class Db_connection(Read_csv):
                      row.pais, row.estado, row.municipio, row.bioma, row.bioma_id, row.foco_id))
                 self.con.commit()
             elif result[0] != row[12]:
-                self.cur.execute("INSERT INTO " + self.table +" (data_hora_gmt,longitude,latitude,satelite,id_0,id_1,id_2,pais,estado,"
-                                 "municipio,bioma,bioma_id,foco_id) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-                                 (row.data_hora_gmt, row.longitude, row.latitude, row.satelite, row.id_0, row.id_1, row.id_2,
-                                  row.pais, row.estado, row.municipio, row.bioma, row.bioma_id, row.foco_id))
+                self.cur.execute(
+                    "INSERT INTO " + self.table + " (data_hora_gmt,longitude,latitude,satelite,id_0,id_1,id_2,pais,estado,"
+                                                  "municipio,bioma,bioma_id,foco_id) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                    (row.data_hora_gmt, row.longitude, row.latitude, row.satelite, row.id_0, row.id_1, row.id_2,
+                     row.pais, row.estado, row.municipio, row.bioma, row.bioma_id, row.foco_id))
                 self.con.commit()
             else:
                 pass

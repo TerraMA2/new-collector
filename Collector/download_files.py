@@ -1,11 +1,14 @@
 from con2ftp import Con2ftp
 from datetime import date
+import datetime
 import os
 
 
 class Download_files(Con2ftp):
     def __init__(self, address, folder):
+        self.range_files = []
         self.files_day_directory = ''
+        self.date_today = ''
         super().__init__(address, folder)
 
     def countFiles(self):
@@ -52,6 +55,8 @@ class Download_files(Con2ftp):
             month = actual_date.month
         year = actual_date.year
 
+        self.date_today = str(year) + '-' + str(month) + '-' + str(day)
+
         for d in self.files_list:
             if 'focos_terrama2q_' + str(year) + str(month) + str(day) in d:
                 self.fileDay.append(d)
@@ -82,3 +87,25 @@ class Download_files(Con2ftp):
         except():
             self.conexao.quit()
             return 'Failed to download files...'
+
+    def down_in_range(self):
+        range_files = []
+        dti = input('Initial day: ')
+        dtf = input('Final day: ')
+
+        start = datetime.datetime.strptime(dti, "%d-%m-%Y")
+        end = datetime.datetime.strptime(dtf, "%d-%m-%Y")
+        date_generated = [start + datetime.timedelta(days=x) for x in range(0, (end - start).days)]
+
+        for date in date_generated:
+            range_files.append('focos_terrama2q_' + (date.strftime("%Y%m%d")))
+        range_files.append('focos_terrama2q_' + (end.strftime("%Y%m%d")))
+
+        self.fileDay = []
+
+        for d in self.files_list:
+            for file in range_files:
+                if file in d:
+                    self.fileDay.append(d)
+
+        return '>>>> ' + str(len(self.fileDay)) + ' Files found'
