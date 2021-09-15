@@ -90,6 +90,7 @@ class Download_files(Con2ftp):
 
     def down_in_range(self):
         range_files = []
+        self.fileDay = []
         dti = input('Initial day: ')
         dtf = input('Final day: ')
 
@@ -100,8 +101,6 @@ class Download_files(Con2ftp):
         for date in date_generated:
             range_files.append('focos_terrama2q_' + (date.strftime("%Y%m%d")))
         range_files.append('focos_terrama2q_' + (end.strftime("%Y%m%d")))
-
-        self.fileDay = []
 
         for d in self.files_list:
             for file in range_files:

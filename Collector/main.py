@@ -5,6 +5,7 @@ if __name__ == '__main__':
                            '/terrama2q/TerraMA2Q_408')
 
     print("Connecting to FTP server...")
+    # reader = Read_csv('ftp.dgi.inpe.br', '/terrama2q/TerraMA2Q_408')
     print(db_con.conn())
 
     print("\nSearching for burn files...")

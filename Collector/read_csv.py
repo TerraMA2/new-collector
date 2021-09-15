@@ -1,3 +1,5 @@
+import os.path
+
 from download_files import Download_files
 import pandas as pd
 
@@ -8,10 +10,10 @@ class Read_csv(Download_files):
         super().__init__(address, folder)
 
     def readFiles(self):
-        for file in self.fileDay:
-            data = pd.read_csv(self.files_day_directory + '\\' + file)
-            df = pd.DataFrame(data,
-                              columns=['data_hora_gmt', 'longitude', 'latitude', 'satelite', 'id_0', 'id_1', 'id_2',
-                                       'pais', 'estado', 'municipio', 'bioma', 'bioma_id', 'foco_id'])
-            self.readed_file = df
+        data_you_need = pd.DataFrame()
+        for infile in self.fileDay:
+            data = pd.read_csv(self.files_day_directory + '\\' + infile)
+            data_you_need = data_you_need.append(data, ignore_index=True)
+        self.readed_file = data_you_need
+
         return '>>> All files has been reads!'
