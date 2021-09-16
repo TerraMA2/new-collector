@@ -24,18 +24,15 @@ class Db_connection(Read_csv):
 
     def insert_values(self):
         for index, row in self.readed_file.iterrows():
-            self.cur.execute(
-                "SELECT foco_id FROM dd_focos_inpe u WHERE u.foco_id = '" + row[12] + "';"
-            )
-            result = self.cur.fetchone()
 
-            if result is None:
-                self.cur.execute(
-                    "INSERT INTO " + self.table + " (data_hora_gmt,longitude,latitude,satelite,id_0,id_1,id_2,pais,estado,"
-                                                  "municipio,bioma,bioma_id,foco_id) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+            self.cur.execute(
+                    "INSERT INTO " + self.table + " (data_hora_gmt, longitude, latitude, satelite, id_0, id_1, id_2,"
+                                                  "pais, estado, municipio, bioma, bioma_id, foco_id) "
+                                                  "values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (foco_id)"
+                                                  " DO NOTHING;",
                     (row.data_hora_gmt, row.longitude, row.latitude, row.satelite, row.id_0, row.id_1, row.id_2,
                      row.pais, row.estado, row.municipio, row.bioma, row.bioma_id, row.foco_id))
-                self.con.commit()
-            pass
+            self.con.commit()
+
         self.cur.close()
         return '>>>> Files successfully added into database'
