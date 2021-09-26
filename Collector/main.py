@@ -62,5 +62,35 @@ if __name__ == '__main__':
     print("\nConnecting to Postgis Data base")
     print(db_con.connection())
     #
-    print("\nInserting values on DataBase...")
-    print(db_con.insert_values())
+    #######################################################################
+    def select_insert_option():
+        data = {
+            1: "Insert all files from Latin America",
+            2: "Insert only Brazilian files",
+            3: "Insert files of a specific state",
+            4: "Exit"
+        }
+        print("Choose an option: ")
+        for options in sorted(data):
+            print("{} - {}".format(options, data[options]))
+        value = input("Option: ")
+        if not value.isdigit() or not int(value) in data:
+            invalid_insert_value(value)
+        elif value == "1":
+            print("\nInserting all values on DataBase...")
+            db_con.insert_all_values()
+        elif value == "2":
+            print("\nInserting Brazilian values on DataBase...")
+            db_con.insert_brazil_values()
+        elif value == "3":
+            db_con.insert_specified_values()
+        elif value == "4":
+            print("Finalizing software ...")
+            exit()
+
+    def invalid_insert_value(value):
+        print("This option " + value + " is invalid, please select another option\n")
+        select_insert_option()
+
+
+    select_insert_option()
