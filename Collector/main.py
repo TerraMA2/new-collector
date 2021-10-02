@@ -5,7 +5,6 @@ if __name__ == '__main__':
                            '/terrama2q/TerraMA2Q_408')
 
     print("Connecting to FTP server...")
-    # reader = Read_csv('ftp.dgi.inpe.br', '/terrama2q/TerraMA2Q_408')
     print(db_con.conn())
 
     print("\nSearching for burn files...")
@@ -20,7 +19,7 @@ if __name__ == '__main__':
     print("\nNumber of files today...")
     print(db_con.numberOfTodayFiles())
 
-    print("\nListing all today's Files...")
+    #print("\nListing all today's Files...")
     # print(db_con.listFileDay())
 
     #######################################################################
@@ -54,21 +53,22 @@ if __name__ == '__main__':
     print(db_con.downloadFilesDay('C:\\git\\new-collector\\Collector\\Files'))
     # print(reader.filesDirectory())
 
-    print("\nThe File's folder is: ")
+    print("\nReading files... ")
     print(db_con.readFiles())
 
     # todo: Classe para inserilos lidos no POSTGIS
 
     print("\nConnecting to Postgis Data base")
     print(db_con.connection())
-    #
+
     #######################################################################
     def select_insert_option():
         data = {
             1: "Insert all files from Latin America",
             2: "Insert only Brazilian files",
             3: "Insert files of a specific state",
-            4: "Exit"
+            4: "Insert files of a specific region",
+            5: "Exit"
         }
         print("Choose an option: ")
         for options in sorted(data):
@@ -85,6 +85,8 @@ if __name__ == '__main__':
         elif value == "3":
             db_con.insert_specified_values()
         elif value == "4":
+            db_con.downloadRegion()
+        elif value == "5":
             print("Finalizing software ...")
             exit()
 
@@ -92,5 +94,5 @@ if __name__ == '__main__':
         print("This option " + value + " is invalid, please select another option\n")
         select_insert_option()
 
-
     select_insert_option()
+

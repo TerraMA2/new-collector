@@ -1,7 +1,7 @@
-import os.path
-
+import os
+import os.path, pandas as pd
 from download_files import Download_files
-import pandas as pd
+
 
 class Read_csv(Download_files):
     def __init__(self, address, folder):
@@ -18,3 +18,5 @@ class Read_csv(Download_files):
                 data_you_need = data_you_need.append(data, ignore_index=True)
         self.readed_file = data_you_need
         return '>>> All files has been reads!'
+
+
