@@ -1,11 +1,25 @@
+import os
+from dotenv import load_dotenv
 from db_connection import Db_connection
 
+load_dotenv()
+
+USER_FTP = os.getenv('USER_FTP')
+PASS_FTP = os.getenv('PASS_FTP')
+HOST = os.getenv('HOST')
+USER_DATABASE = os.getenv('USER_DATABASE')
+PASS_DATABASE = os.getenv('PASS_DATABASE')
+DATABASE = os.getenv('DATABASE')
+TABLE = os.getenv('TABLE')
+FTP_HOST = os.getenv('FTP_HOST')
+FOLDER_FTP = os.getenv('FOLDER_FTP')
+DIRECTORY_FOLDER = os.getenv('DIRECTORY_FOLDER')
+
 if __name__ == '__main__':
-    db_con = Db_connection('localhost', 'test_postgis', 'postgres', 'postgres', 'dd_focos_inpe', 'ftp.dgi.inpe.br',
-                           '/terrama2q/TerraMA2Q_408')
+    db_con = Db_connection(HOST, DATABASE, USER_DATABASE, PASS_DATABASE, TABLE, FTP_HOST, FOLDER_FTP)
 
     print("Connecting to FTP server...")
-    print(db_con.conn())
+    print(db_con.conn(USER_FTP, PASS_FTP))
 
     print("\nSearching for burn files...")
     print(db_con.countFiles())
@@ -48,15 +62,11 @@ if __name__ == '__main__':
         select_option()
 
     select_option()
-    #######################################################################
 
-    print(db_con.downloadFilesDay('C:\\git\\new-collector\\Collector\\Files'))
-    # print(reader.filesDirectory())
+    print(db_con.downloadFilesDay(DIRECTORY_FOLDER))
 
     print("\nReading files... ")
     print(db_con.readFiles())
-
-    # todo: Classe para inserilos lidos no POSTGIS
 
     print("\nConnecting to Postgis Data base")
     print(db_con.connection())
@@ -67,8 +77,7 @@ if __name__ == '__main__':
             1: "Insert all files from Latin America",
             2: "Insert only Brazilian files",
             3: "Insert files of a specific state",
-            4: "Insert files of a specific region",
-            5: "Exit"
+            4: "Exit"
         }
         print("Choose an option: ")
         for options in sorted(data):
@@ -85,8 +94,6 @@ if __name__ == '__main__':
         elif value == "3":
             db_con.insert_specified_values()
         elif value == "4":
-            db_con.downloadRegion()
-        elif value == "5":
             print("Finalizing software ...")
             exit()
 

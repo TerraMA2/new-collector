@@ -9,10 +9,13 @@ class Con2ftp:
         self.files_list = []
         self.fileDay = []
 
-    def conn(self):
+    def conn(self, USER_FTP, PASS_FTP):
         self.conexao = FTP(self.address)
         try:
-            self.conexao.login('queimadas', 'inpe_2012')
+            self.conexao.login(USER_FTP, PASS_FTP)
             return ">>>> " + self.conexao.getwelcome()
         except():
             return ' >> Connection has been failed'
+
+
+

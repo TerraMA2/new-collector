@@ -1,4 +1,3 @@
-import os
 import os.path, pandas as pd
 from download_files import Download_files
 
@@ -17,6 +16,6 @@ class Read_csv(Download_files):
                 data = pd.read_csv(self.files_day_directory + '\\' + infile)
                 data_you_need = data_you_need.append(data, ignore_index=True)
         self.readed_file = data_you_need
-        return '>>> All files has been reads!'
+        return '>>> All files has been read!'
 
 

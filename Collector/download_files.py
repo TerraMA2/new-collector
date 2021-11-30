@@ -72,7 +72,7 @@ class Download_files(Con2ftp):
         if nonpassive:
             self.conexao.set_pasv(False)
         try:
-            print(" >>> Saving all today's Files... ")
+            print(" >>> Saving Files... ")
 
             for filename in self.fileDay:
                 if os.path.isfile(directory + '/' + filename):
@@ -108,3 +108,4 @@ class Download_files(Con2ftp):
                     self.fileDay.append(d)
 
         return '>>>> ' + str(len(self.fileDay)) + ' Files found'
+

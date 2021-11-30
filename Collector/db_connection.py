@@ -1,9 +1,11 @@
-
-import requests
-from delete_files import Delete_files
-from read_csv import Read_csv
 import psycopg2
+from read_csv import Read_csv
+from delete_files import Delete_files
 
+from dotenv import load_dotenv
+import os
+load_dotenv()
+DIRECTORY_FOLDER = os.getenv('DIRECTORY_FOLDER')
 
 class Db_connection(Read_csv):
     def __init__(self, host, database, username, password, table, address, folder):
