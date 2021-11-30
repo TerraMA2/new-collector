@@ -16,6 +16,3 @@ class Con2ftp:
             return ">>>> " + self.conexao.getwelcome()
         except():
             return ' >> Connection has been failed'
-
-
-

@@ -17,5 +17,3 @@ class Read_csv(Download_files):
                 data_you_need = data_you_need.append(data, ignore_index=True)
         self.readed_file = data_you_need
         return '>>> All files has been read!'
-
-
