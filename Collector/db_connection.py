@@ -33,8 +33,7 @@ class Db_connection(Read_csv):
                 self.cur.execute(
                     "INSERT INTO " + self.table + " (data_hora_gmt, longitude, latitude, satelite, id_0, id_1, id_2,"
                                                   "pais, estado, municipio, bioma, bioma_id, foco_id) "
-                                                  "values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (foco_id)"
-                                                  " DO NOTHING;",
+                                                  "values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);",
                     (row.data_hora_gmt, row.longitude, row.latitude, row.satelite, row.id_0, row.id_1, row.id_2,
                      row.pais, row.estado, row.municipio, row.bioma, row.bioma_id, row.foco_id))
                 self.con.commit()
@@ -50,10 +49,9 @@ class Db_connection(Read_csv):
             if row.pais == 'Brasil':
                 try:
                     self.cur.execute(
-                        "INSERT INTO " + self.table + " (data_hora_gmt, longitude, latitude, satelite, id_0, id_1, id_2,"
+                        "INSERT INTO dd_focos_inpe (data_hora_gmt, longitude, latitude, satelite, id_0, id_1, id_2,"
                                                       "pais, estado, municipio, bioma, bioma_id, foco_id) "
-                                                      "values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-                                                      "ON CONFLICT (foco_id) DO NOTHING;",
+                                                      "values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);",
                         (row.data_hora_gmt, row.longitude, row.latitude, row.satelite, row.id_0, row.id_1, row.id_2,
                          row.pais, row.estado, row.municipio, row.bioma, row.bioma_id, row.foco_id))
                     self.con.commit()
@@ -74,8 +72,7 @@ class Db_connection(Read_csv):
                     self.cur.execute(
                         "INSERT INTO " + self.table + " (data_hora_gmt, longitude, latitude, satelite, id_0, id_1, id_2,"
                                                       "pais, estado, municipio, bioma, bioma_id, foco_id) "
-                                                      "values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-                                                      "ON CONFLICT (foco_id) DO NOTHING;",
+                                                      "values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);",
                         (row.data_hora_gmt, row.longitude, row.latitude, row.satelite, row.id_0, row.id_1, row.id_2,
                          row.pais, row.estado, row.municipio, row.bioma, row.bioma_id, row.foco_id))
                     self.con.commit()

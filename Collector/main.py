@@ -36,7 +36,6 @@ if __name__ == '__main__':
     #print("\nListing all today's Files...")
     # print(db_con.listFileDay())
 
-    #######################################################################
     def select_option():
         data = {
             1: "Download Files in range of dates",
@@ -63,7 +62,7 @@ if __name__ == '__main__':
 
     select_option()
 
-    print(db_con.downloadFilesDay(DIRECTORY_FOLDER))
+    print(db_con.downloadFilesDay(str(os.getcwd()) + '\Files'))
 
     print("\nReading files... ")
     print(db_con.readFiles())
@@ -71,7 +70,6 @@ if __name__ == '__main__':
     print("\nConnecting to Postgis Data base")
     print(db_con.connection())
 
-    #######################################################################
     def select_insert_option():
         data = {
             1: "Insert all files from Latin America",
